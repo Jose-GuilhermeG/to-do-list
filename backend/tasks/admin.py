@@ -13,3 +13,7 @@ class TaskListAdmin(BaseAdmin):
     list_filter = ['created_at']
     search_help_text = _("Pesquisar pelo nome ou descrição")
     
+@admin.register(models.TaskItem)
+class TaskItemAdmin(BaseAdmin):
+    list_display = ['title' , 'task_list']
+    list_filter = ['created_at']

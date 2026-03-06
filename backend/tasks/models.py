@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 from core.models import BaseModel
 from core.constants import MEDIUM_TEXT_LENGTH , LONG_TEXT_LENGTH
+from tasks.enums import TaskStatus
 
 USER = get_user_model()
 
@@ -19,7 +20,7 @@ class TaskList(
         blank=False,
         null=False,
         db_index=True,
-        help_text=_(f"Tak list name , can't be empty and have {MEDIUM_TEXT_LENGTH} length size ")
+        help_text=_(f"Task list name , can't be empty and have {MEDIUM_TEXT_LENGTH} length size ")
     )
     
     description = models.CharField(
@@ -48,4 +49,49 @@ class TaskList(
         db_table = "task_list"
         ordering = ['-created_at']
         
+class TaskItem(
+    BaseModel
+):
     
+    title = models.CharField(
+        verbose_name=_("Titulo da tarefa"),
+        max_length=MEDIUM_TEXT_LENGTH,
+        unique=False,
+        blank=False,
+        null=False,
+        db_index=True,
+        help_text=_(f"Task title , can't be empty and have {MEDIUM_TEXT_LENGTH} length size ")
+    )
+    
+    description = models.CharField(
+        verbose_name=_("Descrição da terefas"),
+        max_length=LONG_TEXT_LENGTH,
+        null=False,
+        blank=True,
+        help_text=_(f"Task description , can be empty and have {LONG_TEXT_LENGTH} length size")
+    )
+    
+    status = models.CharField(
+        verbose_name=_("Status da tarefa"),
+        max_length=20,
+        choices=TaskStatus.choices,
+        default=TaskStatus.PENDING,
+        help_text=_(f"Task status , can be {', '.join(TaskStatus.values)}")
+    )
+    
+    task_list = models.ForeignKey(
+        verbose_name=_("Lista de tarefas a qual a tarefa pertence"),
+        to=TaskList,
+        related_name="items",
+        on_delete=models.CASCADE,
+        help_text=_("task list which item belong to")
+    )
+    
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = _("Tarefa")
+        verbose_name_plural = _("Tarefas")
+        db_table = "task_item"
+        ordering = ['-created_at']

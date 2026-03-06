@@ -4,7 +4,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include(('tasks.urls','tasks'),namespace="tasks"))
+    path('lists/',include(('tasks.urls','tasks'),namespace="tasks"))
 ]
 
 # docs
