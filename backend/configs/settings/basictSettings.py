@@ -32,7 +32,8 @@ DEBUG = env.bool(
 ALLOWED_HOSTS = []
 
 PROJECT_APPS = [
-    'core'
+    'core',
+    'tasks',
 ]
 
 TRHIRD_PARTY_APPS = [
