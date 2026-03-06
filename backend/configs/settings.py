@@ -11,26 +11,37 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from os.path import join
+from environ import Env
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+Env.read_env(
+    join(BASE_DIR , '.env')
+)
 
+env = Env()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$!z48@_1-y$l+snt21gscjp8+*v5*o(g74n%^#8=y@awadqes$'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = env(
+    'SECRET_KEY'
+)
+DEBUG = env.bool(
+    'DEBUG',
+    default=False
+)
 
 ALLOWED_HOSTS = []
 
+PROJECT_APPS = [
+    'core'
+]
 
-# Application definition
+TRHIRD_PARTY_APPS = [
+    'rest_framework',
+    'django_filters',
+    'corsheaders'
+]
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+INSTALLED_APPS = PROJECT_APPS + TRHIRD_PARTY_APPS + DJANGO_APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,8 +88,13 @@ WSGI_APPLICATION = 'configs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env("DATABASE_NAME") ,
+        'USER': env("DATABASE_USER") ,
+        'PASSWORD': env("DATABASE_PASSWORD") ,
+        'HOST': env("DATABASE_HOST") ,
+        'PORT': env("DATABASE_PORT") ,
+        'ATOMIC_REQUESTS' : True
     }
 }
 
@@ -97,6 +116,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+]
+
 
 
 # Internationalization
