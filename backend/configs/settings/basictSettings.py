@@ -14,7 +14,7 @@ from pathlib import Path
 from os.path import join
 from environ import Env
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 Env.read_env(
     join(BASE_DIR , '.env')
 )
@@ -38,7 +38,8 @@ PROJECT_APPS = [
 TRHIRD_PARTY_APPS = [
     'rest_framework',
     'django_filters',
-    'corsheaders'
+    'corsheaders',
+    'drf_spectacular'
 ]
 
 DJANGO_APPS = [
