@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from configs.settings import env
 
+CORS_ALLOW_ALL_ORIGINS = True   
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME' : timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME' : timedelta(days=5),
@@ -9,6 +10,7 @@ SIMPLE_JWT = {
     'TOKEN_OBTAIN_SERIALIZER' : 'account.serializers.LoginSerializer',
     'UPDATE_LAST_LOGIN' : True
 }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
