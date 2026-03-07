@@ -5,7 +5,9 @@ from configs.settings import env
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME' : timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME' : timedelta(days=5),
-    'SIGNING_KEY' : env('JWT_SIGNING_KEY')
+    'SIGNING_KEY' : env('JWT_SIGNING_KEY'),
+    'TOKEN_OBTAIN_SERIALIZER' : 'account.serializers.LoginSerializer',
+    'UPDATE_LAST_LOGIN' : True
 }
 
 REST_FRAMEWORK = {
