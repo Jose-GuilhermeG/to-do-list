@@ -127,3 +127,7 @@
     @apply font-sans;
     }
 }
+
+.w-md-editor-toolbar-mode {
+  display: none !important;
+}

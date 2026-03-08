@@ -9,7 +9,7 @@ interface TaskListProtocol{
 
 export default function SideBar({taskLists} : {taskLists : TaskListProtocol[]}){
     return (
-        <aside className="h-screen w-[15%] bg-white static top-0 left-0 shadow shadow-neutral-200 grid grid-rows-3">
+        <aside className="h-screen w-full bg-white top-0 left-0 shadow shadow-neutral-200 grid grid-rows-3">
             <div className="w-full h-full flex flex-col items-center row-start-1 row-end-3">
                 <div className="w-full min-h-10 grid grid-cols-2 grid-rows-1 my-10">
                     <h1 className="text-2xl flex items-center mx-10">
