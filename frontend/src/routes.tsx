@@ -1,6 +1,7 @@
 import {Route , Routes , BrowserRouter} from "react-router-dom"
 
 import Home from "./pages/Home"
+import LoginPage from "./pages/auth/LoginPage"
 
 import LoginRequire from "./components/Auth/LoginRequire"
 
@@ -13,6 +14,7 @@ export default function Urls(){
                             <Home/>
                         </LoginRequire>
                     } />
+                    <Route path="account/login/" element={<LoginPage/>} />
             </Routes>
         </BrowserRouter>
     )

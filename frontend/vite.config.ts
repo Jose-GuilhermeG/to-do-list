@@ -13,7 +13,7 @@ export default defineConfig({
     qrcode(),
   ],
   server : {
-    port : 5000.
+    port : 5000,
   },
   resolve: {
     alias: {
