@@ -1,8 +1,16 @@
+import SideBar from "@/layout/SideBar"
+
 export function Home() {
+  const taskLists = [
+    {id : 0 , name : "teste"},
+    {id : 0 , name : "teste"},
+    {id : 0 , name : "teste"},
+  ]
+
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="font-medium">Hello World</div>
-    </div>
+    <main className="min-h-screen min-w-screen bg-neutral-100 relative">
+      <SideBar taskLists={taskLists}/>
+    </main>
   )
 }
 
