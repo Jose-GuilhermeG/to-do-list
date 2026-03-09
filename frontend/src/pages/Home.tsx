@@ -9,11 +9,13 @@ export function Home() {
     {id : 0 , name : "teste"},
     {id : 0 , name : "teste"},
   ]
+
+  const test = []
   const taskItems : TaskItemProtocol[] = [
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
-    {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
+    {id : 0 , title : "teste" , status : "completed" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
@@ -44,7 +46,7 @@ export function Home() {
       <TaskView 
         selectTaskList={taskLists[0]}
         tasks={taskItems}
-        selectTask={taskItem}
+        //selectTask={taskItem}
         setSelectTaskContent={setTaskContent} />
     </main>
   )

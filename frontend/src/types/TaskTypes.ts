@@ -8,5 +8,6 @@ export interface TaskItemProtocol{
 
 export interface TaskListProtocol{
     id : number,
-    name : string
+    name : string,
+    description? : string,
 }
