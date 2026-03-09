@@ -1,11 +1,8 @@
 import { Separator } from "@/components/ui/separator";
+import type { TaskListProtocol } from "@/types/TaskTypes";
 import { ListChecks , Folder , Plus, Settings, CircleQuestionMark } from "lucide-react";
 import { Link } from "react-router-dom";
 
-interface TaskListProtocol{
-    id : number,
-    name : string
-}
 
 export default function SideBar({taskLists} : {taskLists : TaskListProtocol[]}){
     return (

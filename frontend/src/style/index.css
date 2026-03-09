@@ -128,6 +128,6 @@
     }
 }
 
-.w-md-editor-toolbar-mode {
-  display: none !important;
+.scoll ::-webkit-scrollbar-button {
+  display: none;
 }

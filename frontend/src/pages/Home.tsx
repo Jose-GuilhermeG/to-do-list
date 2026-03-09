@@ -9,7 +9,7 @@ export function Home() {
     {id : 0 , name : "teste"},
     {id : 0 , name : "teste"},
   ]
-  const taskItems = [
+  const taskItems : TaskItemProtocol[] = [
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
     {id : 0 , title : "teste" , status : "in_progress" , description : "teste de descrição"},
@@ -42,9 +42,10 @@ export function Home() {
     <main className="h-screen w-screen bg-neutral-100 relative grid grid-cols-[15%_80%] gap-10">
       <SideBar taskLists={taskLists}/>
       <TaskView 
+        selectTaskList={taskLists[0]}
         tasks={taskItems}
         selectTask={taskItem}
-        setContent={setTaskContent} />
+        setSelectTaskContent={setTaskContent} />
     </main>
   )
 }
