@@ -1,6 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-import time
 
 from tasks.models import TaskList , TaskItem
 from tasks.serializers import taskListSerializer , TaskListDetailSerializer , TaskItemSerializer , TaskItemSerializerCreate , TaskItemSerializerDetail
@@ -46,7 +45,6 @@ class TaskItemViewSet(
         return serializer.save(task_list = task_list)
     
     def get_queryset(self):
-        time.sleep(2)
         return TaskItem.objects.filter(
             task_list__user = self.request.user,
             task_list__pk = self.get_task_list_pk()

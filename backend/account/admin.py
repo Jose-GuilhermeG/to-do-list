@@ -10,7 +10,8 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['username' , 'email']
     fieldsets = (
         (_("Personale infos") , {"fields" : ('username' , 'email' , 'password')}),
-        (_("Permissions and groups") , {"fields" : ( "is_staff" , "is_superuser" , "user_permissions" , "groups")})
+        (_("Permissions and groups") , {"fields" : ( "is_staff" , "is_superuser" , "user_permissions" , "groups")}),
+        (_("Auth") , {"fields" : ("last_login" , )} ),
     )
     
     search_fields = ['username' , 'email']
