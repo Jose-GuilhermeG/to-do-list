@@ -2,56 +2,38 @@ import React , { useEffect, useState } from "react"
 
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Mail , Eye , AlertCircleIcon, XCircle } from "lucide-react"
+import { Mail , Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import useLogin from "@/hooks/useLogin"
 
 import GoogleIcon from "@/assets/icons/google-icon.svg"
 import Loading from "@/components/ui/loading"
 import { useNavigate } from "react-router-dom"
-import { Alert, AlertAction, AlertTitle } from "@/components/ui/alert"
+import BaseAuthPage from "@/features/auth/BasePage"
 
 export default function LoginPage() {
     const [emailData , setEmailData] = useState<string>("")
     const [passwordData , setPasswordData] = useState<string>("")
     const navigate = useNavigate()
     const {isLoading , isLoged , errors , setErrors , realizeLogin} = useLogin()
+    
+    useEffect(()=>{
+        if(isLoged) navigate("/")
+    },[isLoged])
 
     const handleSubmit = async (e : React.SubmitEvent)=>{
         e.preventDefault()
         await realizeLogin({email : emailData , password : passwordData})
     }
     
-    useEffect(()=>{
-        if(isLoged) navigate("/")
-    },[isLoged])
+    const goToRegister = (e : React.MouseEvent) : void => {
+        e.preventDefault()
+        navigate("/account/register/")
+    }
 
     return (
-        <main className="w-screen h-screen bg-neutral-100 flex justify-center items-center">
-            {
-                errors && 
-                <Alert className="absolute! top-20 min-w-[20%] w-fit max-w-[30%]" variant="destructive">
-                    <AlertCircleIcon/>
-                    <AlertTitle>
-                        {errors}
-                    </AlertTitle>
-                    <AlertAction>
-                        <button className="cursor-pointer" onClick={()=>setErrors("")}>
-                            <XCircle/>
-                        </button>
-                    </AlertAction>
-                </Alert>
-            }
-            <section className="w-[75vw] h-[70vh] bg-white shadow-2xl shadow-neutral-300 rounded-xl grid grid-cols-2 relative max-lg:grid-cols-1">
-                <div className="aspect-square w-full h-4/5 m-auto flex flex-col justify-around items-center max-lg:hidden">
-                    <h1 className="text-4xl font-bold tracking-[2px] font-serif">
-                        TaskList
-                    </h1>
-                    <img src="/anotated.png" alt="" className="aspect-square max-w-[400px]" />
-                </div>
-                <Separator orientation="vertical" className="absolute left-[47%] h-9/10 top-[5%] max-lg:hidden" />
-                <form action="" className="p-2 h-full w-full relative max-lg:w-4/5 m-auto" onSubmit={handleSubmit}>
+        <BaseAuthPage errors={errors} setErrors={setErrors}>
+                <form className="p-2 h-full w-full relative max-lg:w-4/5 m-auto" onSubmit={handleSubmit}>
                     <FieldSet>
                         <h1 className="my-5 text-2xl font-bold text-center">
                             Entrar
@@ -82,7 +64,7 @@ export default function LoginPage() {
                                 Entrar
                             </Button>
                             {isLoading && <Loading/>}
-                            <Button variant="outline" className="my-2">
+                            <Button variant="outline" className="my-2" onClick={goToRegister}>
                                 Não tem conta? Criar
                             </Button>
                             <Field>
@@ -98,7 +80,6 @@ export default function LoginPage() {
                         </FieldGroup>
                     </FieldSet>
                 </form>
-            </section>
-        </main>
+        </BaseAuthPage>
     )
 }

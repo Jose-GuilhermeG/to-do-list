@@ -3,6 +3,7 @@ import {Route , Routes , BrowserRouter} from "react-router-dom"
 import Home from "./pages/Home"
 import LoginPage from "./pages/auth/LoginPage"
 import LogoutPage from "./pages/auth/LogoutPage"
+import RegisterPage from "./pages/auth/Register"
 
 import LoginRequire from "./components/Auth/LoginRequire"
 
@@ -21,6 +22,7 @@ export default function Urls(){
                         </LoginRequire>
                     } />
                     <Route path="account/login/" element={<LoginPage/>} />
+                    <Route path="account/register/" element={<RegisterPage/>} />
             </Routes>
         </BrowserRouter>
     )

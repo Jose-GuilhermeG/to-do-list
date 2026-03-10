@@ -1,6 +1,9 @@
 import { Folder } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import type { TaskListProtocol } from "@/types/TaskTypes"
+import type React from "react";
+import { useState } from "react";
+import TaskListOptionsMenu from "./TaskListOptionMenu";
 
 interface TaskListCardProtocol {
     taskList : TaskListProtocol ;
@@ -9,8 +12,19 @@ interface TaskListCardProtocol {
 }
 
 export default function TaskListCard({taskList , isSelect = false , onClickEvent} : TaskListCardProtocol){
+    const [showMenu , setShowMenu] = useState<boolean>(false)
+    const [y , setY] = useState<number>(0)
+    const [x , setX] = useState<number>(0)
+    const handlerRightClick = (e : React.MouseEvent) : void =>{
+        e.preventDefault()
+        setY(e.clientY - 100)
+        setX(e.clientX - 150)
+        setShowMenu(true)
+    }
+
     return (
-        <li key={taskList.id} className="w-full hover:bg-neutral-200" onClick={()=>onClickEvent(taskList)}>
+        <li key={taskList.id} className="w-full hover:bg-neutral-200" onClick={()=>onClickEvent(taskList)}  onContextMenu={handlerRightClick}>
+            {showMenu && <TaskListOptionsMenu y={y} x={x}/>}
             <button className="w-4/5 m-auto flex px-2 py-4 cursor-pointer relative">
                 <Folder className="mr-10"/> {taskList.name}
                 {isSelect && 

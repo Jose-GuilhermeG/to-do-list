@@ -23,6 +23,6 @@ export default function useGetTaskList(accessToken : string){
         getTaskLists(accessToken)
     },[accessToken])
 
-    return {isLoading , errors , setErrors , taskLists}
+    return {isLoading , errors , setErrors , taskLists , setTaskLists}
 
 }

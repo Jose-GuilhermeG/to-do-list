@@ -7,19 +7,24 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
 import useCreateTaskList from "@/hooks/useCreateTaskList";
 import Loading from "@/components/ui/loading";
+import type { TaskListProtocol } from "@/types/TaskTypes";
 
 interface createTaskListProtocol{
     open : boolean ;
-    setOpen : (value :boolean) => void
+    setOpen : (value :boolean) => void;
+    setTaskLists : (value : TaskListProtocol) => void
 }
 
-export default function CreateTaskList({open , setOpen} : createTaskListProtocol){
+export default function CreateTaskList({open , setOpen , setTaskLists} : createTaskListProtocol){
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
     const [taskListName , setTaskListName ] = useState<string>("")
-    const {createTaskList , isLoading , isCreated} = useCreateTaskList()
+    const {createTaskList , taskList , isLoading , isCreated} = useCreateTaskList()
     
     useEffect(()=>{
-        if(isCreated) setOpen(false)
+        if(isCreated){ 
+            setOpen(false)
+            setTaskLists(taskList as TaskListProtocol)
+        }
     },[isCreated])
 
     if(!open) return <></>

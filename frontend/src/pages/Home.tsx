@@ -11,16 +11,18 @@ import { useContext, useState } from "react";
 
 export function Home() {
   const {accessToken} = useContext(AuthContext) as AuthContextProtocol
-  const {isLoading,  taskLists} = useGetTaskList(accessToken)
+  const {isLoading,  taskLists , setTaskLists} = useGetTaskList(accessToken)
   const [selectTaskList , setSelectTaskListState] = useState<TaskListProtocol>()
   const setSelectTask = (taskList : TaskListProtocol) : void => setSelectTaskListState(taskLists.find(element=>element.id == taskList.id))
   const [haveCreateTaskList , setHaveCreateTaskList] = useState<boolean>(false)
+
+  const addTaskList = (value : TaskListProtocol) : void => setTaskLists(prevs=>[...prevs , value])
 
   if(isLoading) return <Loading/>
 
   return (
     <main className="h-screen w-screen bg-neutral-100 relative grid grid-cols-[15%_80%] gap-10">
-      <CreateTaskList open={haveCreateTaskList} setOpen={setHaveCreateTaskList}/>
+      <CreateTaskList open={haveCreateTaskList} setOpen={setHaveCreateTaskList} setTaskLists={addTaskList}/>
       <SideBar taskListselected={selectTaskList} taskLists={taskLists} selectTaskList={setSelectTask} createTaskList={()=>setHaveCreateTaskList(true)}/>
       {selectTaskList ? 
         <TaskView selectTaskList={selectTaskList}/> :

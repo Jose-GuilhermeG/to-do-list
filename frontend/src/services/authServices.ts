@@ -57,3 +57,12 @@ export const LogoutService = async(refreshToken : string) : Promise<AxiosPromise
         }
     )
 }
+
+export const RegisterService = async (username : string , email : string , password : string) : Promise<AxiosPromise<TokenPairProtocol>> =>{
+    const url = "register/"
+    const data = {username , email , password}
+    return requests.post(
+        url,
+        data
+    )
+}
