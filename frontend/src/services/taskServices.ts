@@ -33,3 +33,11 @@ export const getTaskItemDetailService = async (accessToken : string , taskListId
         {headers : createServiceHerder("Bearer" , accessToken)}
     )
 }
+
+export const createTasklistService = async (accessToken : string , name : string) : Promise<AxiosPromise<TaskListProtocol>> =>{
+    return requests.post(
+        "/",
+        {name},
+        {headers : createServiceHerder("Bearer" , accessToken)}
+    )
+}

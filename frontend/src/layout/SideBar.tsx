@@ -1,6 +1,6 @@
 import TaskListCard from "@/features/Tasks/TaskListCard";
 import type { TaskListProtocol } from "@/types/TaskTypes";
-import { ListChecks , Plus, Settings, CircleQuestionMark } from "lucide-react";
+import { ListChecks , Plus, Settings, CircleQuestionMark, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 
 
@@ -8,9 +8,10 @@ interface sideBarProtocol{
     taskLists : TaskListProtocol[] ; 
     taskListselected? : TaskListProtocol ; 
     selectTaskList : (task : TaskListProtocol)=>void;
+    createTaskList : ()=>void
 }
 
-export default function SideBar({taskLists , taskListselected , selectTaskList} : sideBarProtocol){
+export default function SideBar({taskLists , createTaskList , taskListselected , selectTaskList} : sideBarProtocol){
     return (
         <aside className="h-screen w-full bg-white top-0 left-0 shadow shadow-neutral-200 grid grid-rows-3">
             <div className="w-full h-full flex flex-col items-center row-start-1 row-end-3">
@@ -19,7 +20,7 @@ export default function SideBar({taskLists , taskListselected , selectTaskList} 
                         Listas
                         <ListChecks className="mx-2"/>
                     </h1>
-                    <button className="justify-self-center cursor-pointer">
+                    <button className="justify-self-center cursor-pointer" onClick={createTaskList}>
                         <Plus className="hover:text-neutral-400"/>
                     </button>
                 </div>
@@ -39,6 +40,11 @@ export default function SideBar({taskLists , taskListselected , selectTaskList} 
                     <li>
                         <Link>
                             <CircleQuestionMark/>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link>
+                            <LogOut/>
                         </Link>
                     </li>
                 </ul>
