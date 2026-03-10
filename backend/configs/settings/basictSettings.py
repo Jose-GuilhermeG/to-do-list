@@ -31,6 +31,7 @@ TRHIRD_PARTY_APPS = [
     'corsheaders',
     'drf_spectacular',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 DJANGO_APPS = [

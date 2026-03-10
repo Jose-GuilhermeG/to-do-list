@@ -43,7 +43,7 @@ export default function SideBar({taskLists , createTaskList , taskListselected ,
                         </Link>
                     </li>
                     <li>
-                        <Link>
+                        <Link to="/account/logout/" state={{"origin" : "/"}}>
                             <LogOut/>
                         </Link>
                     </li>

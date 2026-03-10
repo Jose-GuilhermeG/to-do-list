@@ -5,7 +5,7 @@ from configs.settings import env
 CORS_ALLOW_ALL_ORIGINS = True   
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME' : timedelta(hours=2),
+    'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=25),
     'REFRESH_TOKEN_LIFETIME' : timedelta(days=5),
     'SIGNING_KEY' : env('JWT_SIGNING_KEY'),
     'TOKEN_OBTAIN_SERIALIZER' : 'account.serializers.LoginSerializer',
@@ -25,7 +25,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100/day',
-        'user': '50/min'
+        'user': '100/min'
     }
 
 }

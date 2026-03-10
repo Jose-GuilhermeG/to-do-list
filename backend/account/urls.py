@@ -1,5 +1,5 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView , TokenVerifyView , TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView , TokenVerifyView , TokenRefreshView , TokenBlacklistView
 
 from account import views
 
@@ -28,5 +28,10 @@ urlpatterns = [
         'me/',
         views.UserDetailView.as_view(),
         name='detail'
+    ),
+    path(
+        'logout/',
+        TokenBlacklistView.as_view(),
+        name="logout"
     )
 ]

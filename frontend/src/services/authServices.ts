@@ -47,3 +47,13 @@ export const LoginService = async(data : LoginRequestData ) : Promise<AxiosPromi
         data
     )
 }
+
+export const LogoutService = async(refreshToken : string) : Promise<AxiosPromise> =>{
+    const url = "logout/"
+    return requests.post(
+        url,
+        {
+            refresh : refreshToken
+        }
+    )
+}
