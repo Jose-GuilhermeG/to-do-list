@@ -5,17 +5,17 @@ from tasks.models import TaskList ,TaskItem
 class TaskItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskItem
-        fields = ["title" , "status" , "created_at"]
+        fields = [ "id","title" , "description" , "status" , "created_at"]
         
 class TaskItemSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = TaskItem
-        fields = ["title" , "description"]
+        fields = ["title" , "content" , "description"]       
         
 class TaskItemSerializerDetail(serializers.ModelSerializer):
     class Meta:
         model = TaskItem
-        fields = ["title" , "description" , "status" , "created_at"]
+        fields = ["title" , "description" , "content" , "status" , "created_at"]
         read_only_fields = ['created_at']
 
 class taskListSerializer(

@@ -21,7 +21,7 @@ urlpatterns = [
         name='task-item-list'
     ),
     path(
-        '<int:task_list_pk>/tasks/<int:pk>',
+        '<int:task_list_pk>/tasks/<int:pk>/',
         view=taskItemDetail,
         name='task-item-detail'
     ),

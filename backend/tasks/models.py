@@ -79,6 +79,13 @@ class TaskItem(
         help_text=_(f"Task status , can be {', '.join(TaskStatus.values)}")
     )
     
+    content = models.TextField(
+        verbose_name=_("Conteúdo da tarefa"),
+        null=True,
+        blank=True,
+        help_text=_("Task content , can be empty")
+    )
+    
     task_list = models.ForeignKey(
         verbose_name=_("Lista de tarefas a qual a tarefa pertence"),
         to=TaskList,
