@@ -25,3 +25,11 @@ export const getTaskItemsService = async (accessToken : string , id : number) : 
         {headers : createServiceHerder("Bearer" , accessToken)}
     )
 }
+
+export const getTaskItemDetailService = async (accessToken : string , taskListId : number , taskItemId : number) : Promise<AxiosPromise<TaskItemProtocol>> =>{
+    const url = `${taskListId}/tasks/${taskItemId}/`;
+    return requests.get(
+        url,
+        {headers : createServiceHerder("Bearer" , accessToken)}
+    )
+}

@@ -7,6 +7,8 @@ import EmptyTaskList from "@/features/Tasks/EmptyTaskList";
 import useGetTaskItems from "@/hooks/useGetTaskItems";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
+import Loading from "@/components/ui/loading";
+import useGetTaskItemDetail from "@/hooks/useGetTaskItemDetail";
 
 interface TaskViewProtocol{
     selectTaskList : TaskListProtocol;
@@ -16,7 +18,17 @@ interface TaskViewProtocol{
 export default function TaskView({ selectTaskList } : TaskViewProtocol) {
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
     const {taskItems , errors ,isLoading } = useGetTaskItems(accessToken , selectTaskList.id)
-    const [selectTask , setSelectTaskItem] = useState<TaskItemProtocol>()
+    const [selectTaskInfo , setSelectTaskItemInfo] = useState<TaskItemProtocol>()
+
+    const clearSelectTaskItem = ()=>{
+        setSelectTaskItemInfo(undefined)
+        setSelectTaskDetail(undefined)
+    }
+
+
+    if(isLoading) return (    
+        <Loading/>
+    )
 
     if(!taskItems.length) return <EmptyTaskList/>
 
@@ -29,10 +41,10 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
         </div>
         <div 
             className="row-end-3 row-start-2 col-start-1 col-end-2 w-full max-h-full px-2 relative"
-            onDoubleClick={()=>setSelectTaskItem(undefined)}
+            onDoubleClick={()=>clearSelectTaskItem()}
             >
             <ul className="h-[90%] overflow-y-scroll scroll p-2">
-                {taskItems.map(element=><TaskItemCard task={element} onClickEvent={setSelectTaskItem} />)}
+                {taskItems.map(element=><TaskItemCard task={element} onClickEvent={setSelectTaskItemInfo} />)}
             </ul>
             <Button className="rounded-[5px] my-5 bottom-0 h-[10%] w-full cursor-pointer">
                 Adicionar tarefa
@@ -40,8 +52,8 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
         </div>
         <div className="row-end-3 row-start-2 col-start-2 col-end-3 w-full h-full p-5" data-color-mode="light">
             {
-            selectTask ?
-            <TaskDetail selectTask={selectTask} /> :
+            selectTaskInfo ?
+            <TaskDetail selectTaskItemId={selectTaskInfo.id} selectTaskListId={selectTaskList.id}/> :
             <TaskNotSelect/>
             }
         </div>

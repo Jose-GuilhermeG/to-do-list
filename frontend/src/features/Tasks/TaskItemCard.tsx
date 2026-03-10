@@ -13,7 +13,10 @@ export default function TaskItemCard({task , onClickEvent} : {task : TaskItemPro
 
     return (
         <Field key={task.id} className="w-full my-2 shadow shadow-neutral-200 hover:bg-neutral-200 group cursor-pointer rounded-[5px]" 
-            onDoubleClick={()=>MarkTask()}
+            onDoubleClick={(e)=>{
+                e.stopPropagation()
+                MarkTask()
+            }}
             onClick={()=>onClickEvent(task)}
             >
             <h1 className="flex px-2 py-3 cursor-pointer text-2xl items-center">
