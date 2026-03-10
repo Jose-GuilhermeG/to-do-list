@@ -1,10 +1,16 @@
-import { Separator } from "@/components/ui/separator";
+import TaskListCard from "@/features/Tasks/TaskListCard";
 import type { TaskListProtocol } from "@/types/TaskTypes";
-import { ListChecks , Folder , Plus, Settings, CircleQuestionMark } from "lucide-react";
+import { ListChecks , Plus, Settings, CircleQuestionMark } from "lucide-react";
 import { Link } from "react-router-dom";
 
 
-export default function SideBar({taskLists} : {taskLists : TaskListProtocol[]}){
+interface sideBarProtocol{
+    taskLists : TaskListProtocol[] ; 
+    taskListselected? : TaskListProtocol ; 
+    selectTaskList : (task : TaskListProtocol)=>void;
+}
+
+export default function SideBar({taskLists , taskListselected , selectTaskList} : sideBarProtocol){
     return (
         <aside className="h-screen w-full bg-white top-0 left-0 shadow shadow-neutral-200 grid grid-rows-3">
             <div className="w-full h-full flex flex-col items-center row-start-1 row-end-3">
@@ -17,14 +23,9 @@ export default function SideBar({taskLists} : {taskLists : TaskListProtocol[]}){
                         <Plus className="hover:text-neutral-400"/>
                     </button>
                 </div>
-                <ul className="w-full flex flex-col justify-around items-center h-[50%] min-h-10">
+                <ul className="w-full flex flex-col justify-start items-center h-[50%] min-h-10">
                     {taskLists.map(element=>(
-                        <li key={element.id} className="w-full hover:bg-neutral-200">
-                            <button className="w-4/5 m-auto flex px-2 py-4 cursor-pointer">
-                                <Folder className="mr-10"/> {element.name}
-                            </button>
-                            <Separator className="max-w-4/5 m-auto"/>
-                        </li>
+                        <TaskListCard taskList={element} onClickEvent={selectTaskList} isSelect={taskListselected?.id == element.id} />
                     ))}
                 </ul>
             </div>

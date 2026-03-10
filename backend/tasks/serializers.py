@@ -28,7 +28,7 @@ class taskListSerializer(
     )
     class Meta:
         model = TaskList
-        fields = ['name' , 'description' , 'task_list_url']
+        fields = ["id" , 'name' , 'description' , 'task_list_url']
         
 class TaskListDetailSerializer(
     serializers.ModelSerializer

@@ -11,7 +11,7 @@ export default function useLogin(){
     const [isLoged , setIsLoged] = useState<boolean>(false)
     const {setAccessToken , setRefreshToken } = useContext(AuthContext) as AuthContextProtocol
 
-    const realizeLogin = async (data : LoginRequestData) : void =>{
+    const realizeLogin = async (data : LoginRequestData) =>{
         setIsLoading(true)
         try{
             const response = (await LoginService(data)).data

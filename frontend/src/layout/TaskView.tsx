@@ -9,10 +9,10 @@ interface TaskViewProtocol{
     selectTaskList : TaskListProtocol;
     tasks : Array<TaskItemProtocol> ;
     selectTask? : TaskItemProtocol ;
-    setSelectTaskContent(value : string) : void ; 
+    //setSelectTaskContent(value : string) : void ; 
 }
 
-export default function TaskView({ selectTaskList, tasks , selectTask , setSelectTaskContent} : TaskViewProtocol) {
+export default function TaskView({ selectTaskList, tasks , selectTask} : TaskViewProtocol) {
   if(!tasks.length) return <EmptyTaskList/>
 
   return (
