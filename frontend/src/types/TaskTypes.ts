@@ -1,9 +1,11 @@
-export interface TaskItemProtocol{
+export interface TaskItemListProtocol{
     id : number;
     title : string;
     description? : string;
-    content? : string;
     status : "pending" | "in_progress" | "completed";
+}
+export interface TaskItemProtocol extends TaskItemListProtocol{
+    content? : string;
 }
 
 export interface TaskListProtocol{

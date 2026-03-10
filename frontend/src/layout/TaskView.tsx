@@ -4,27 +4,35 @@ import TaskDetail from "@/features/Tasks/TaskDetail";
 import TaskItemCard from "@/features/Tasks/TaskItemCard";
 import TaskNotSelect from "@/features/Tasks/TaskNotSelect";
 import EmptyTaskList from "@/features/Tasks/EmptyTaskList";
+import useGetTaskItems from "@/hooks/useGetTaskItems";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
 
 interface TaskViewProtocol{
     selectTaskList : TaskListProtocol;
-    tasks : Array<TaskItemProtocol> ;
-    selectTask? : TaskItemProtocol ;
     //setSelectTaskContent(value : string) : void ; 
 }
 
-export default function TaskView({ selectTaskList, tasks , selectTask} : TaskViewProtocol) {
-  if(!tasks.length) return <EmptyTaskList/>
+export default function TaskView({ selectTaskList } : TaskViewProtocol) {
+    const {accessToken} = useContext(AuthContext) as AuthContextProtocol
+    const {taskItems , errors ,isLoading } = useGetTaskItems(accessToken , selectTaskList.id)
+    const [selectTask , setSelectTaskItem] = useState<TaskItemProtocol>()
 
-  return (
+    if(!taskItems.length) return <EmptyTaskList/>
+
+    return (
     <div className="w-full h-[95%] rounded-2xl bg-white m-auto shadow-2xl shadow-neutral-400 grid grid-cols-2 grid-rows-[10%_85%] overflow-hidden gap-2 relative">
         <div className="row-start-1 row-end-2 col-end-3 col-start-1 shadow shadow-neutral-200">
             <h1 className="text-3xl font-bold px-10 mt-10">
                 {selectTaskList.name}
             </h1>
         </div>
-        <div className="row-end-3 row-start-2 col-start-1 col-end-2 w-full max-h-full px-2 relative">
+        <div 
+            className="row-end-3 row-start-2 col-start-1 col-end-2 w-full max-h-full px-2 relative"
+            onDoubleClick={()=>setSelectTaskItem(undefined)}
+            >
             <ul className="h-[90%] overflow-y-scroll scroll p-2">
-                {tasks.map(element=><TaskItemCard task={element} />)}
+                {taskItems.map(element=><TaskItemCard task={element} onClickEvent={setSelectTaskItem} />)}
             </ul>
             <Button className="rounded-[5px] my-5 bottom-0 h-[10%] w-full cursor-pointer">
                 Adicionar tarefa
@@ -38,5 +46,5 @@ export default function TaskView({ selectTaskList, tasks , selectTask} : TaskVie
             }
         </div>
     </div>
-  );
+    );
 }

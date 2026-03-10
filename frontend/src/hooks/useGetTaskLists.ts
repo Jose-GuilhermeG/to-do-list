@@ -21,7 +21,7 @@ export default function useGetTaskList(accessToken : string){
 
     useEffect(()=>{
         getTaskLists(accessToken)
-    },[])
+    },[accessToken])
 
     return {isLoading , errors , setErrors , taskLists}
 
