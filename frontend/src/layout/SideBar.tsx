@@ -1,4 +1,4 @@
-import TaskListCard from "@/features/Tasks/TaskListCard";
+import TaskListCard from "@/features/TaskLists/TaskListCard";
 import type { TaskListProtocol } from "@/types/TaskTypes";
 import { ListChecks , Plus, Settings, CircleQuestionMark, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -33,12 +33,12 @@ export default function SideBar({taskLists , createTaskList , taskListselected ,
             <div className="h-full w-full grid items-end">
                 <ul className="w-full flex justify-around items-center mb-10">
                     <li>
-                        <Link>
+                        <Link to="/">
                             <Settings/>
                         </Link>
                     </li>
                     <li>
-                        <Link>
+                        <Link to="/">
                             <CircleQuestionMark/>
                         </Link>
                     </li>

@@ -1,6 +1,6 @@
 import pytest
-
 from tasks.models import TaskList
+
 
 @pytest.mark.django_db
 class TestTaskList:

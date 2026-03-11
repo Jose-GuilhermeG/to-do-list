@@ -2,9 +2,9 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Button } from "@/components/ui/button";
 import {FolderXIcon} from "lucide-react"
 import { useState } from "react";
-import TaskItemview from "./TaskItemView";
+import TaskItemview from "../TaskItems/TaskItemView";
 
-export default function EmptyTaskList(){
+export default function EmptyTaskList({taskListId} : {taskListId : number}){
     const [isCreating , setIsCreating] = useState<boolean>(false)
 
     return (
@@ -27,7 +27,7 @@ export default function EmptyTaskList(){
                     </EmptyContent>
                 </EmptyHeader>
             </Empty>
-            {isCreating && <TaskItemview setOpen={setIsCreating} />}
+            {isCreating && <TaskItemview setOpen={setIsCreating} taskListId={taskListId} />}
         </div>
     )
 }

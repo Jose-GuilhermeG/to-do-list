@@ -1,6 +1,5 @@
 import pytest
 from django.contrib.auth import get_user_model
-
 from tasks.models import TaskList
 
 USER = get_user_model()
@@ -11,7 +10,7 @@ def get_user():
         username = "testUser",
         email="test@email.com"
     )
-    
+
     user.set_password("testPass")
     user.save()
     return user

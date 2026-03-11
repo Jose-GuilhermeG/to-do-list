@@ -15,7 +15,7 @@ interface TaskDetailProtocol{
 export default function TaskDetail({selectTaskItemId , selectTaskListId} : TaskDetailProtocol){
 
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
-    const {taskItem, errors , isLoading} = useGetTaskItemDetail(accessToken , selectTaskItemId , selectTaskListId)
+    const {taskItem , isLoading} = useGetTaskItemDetail(accessToken , selectTaskItemId , selectTaskListId)
 
     if(isLoading) return (
         <div className="w-full h-full flex items-center">

@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default function LogoutPage(){
     const location = useLocation()
     const navigate = useNavigate()
-    const {isLoading , erros , setErros , success , logout : logoutEffect } = useLogout()
+    const {isLoading , success , logout : logoutEffect } = useLogout()
     const {refreshToken , setAccessToken} = useContext(AuthContext) as AuthContextProtocol
 
     useEffect(()=>{

@@ -1,7 +1,8 @@
+from account.managers import CustomUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-from account.managers import CustomUserManager
 from django.utils.translation import gettext_lazy as _
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
@@ -15,7 +16,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name=_("username"),
         help_text="Your username"
     )
-    
+
     is_active = models.BooleanField(default=True, verbose_name=_("is_active"))
     is_staff = models.BooleanField(default=False, verbose_name=_("is_staff"))
 

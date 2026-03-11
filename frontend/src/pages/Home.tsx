@@ -1,7 +1,7 @@
 import Loading from "@/components/ui/loading";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
-import CreateTaskList from "@/features/Tasks/CreateTaskList";
-import TaskListNotSelect from "@/features/Tasks/TaskListNotSelect";
+import CreateTaskList from "@/features/TaskLists/CreateTaskList";
+import TaskListNotSelect from "@/features/TaskLists/TaskListNotSelect";
 import useGetTaskList from "@/hooks/useGetTaskLists";
 import SideBar from "@/layout/SideBar"
 import TaskView from "@/layout/TaskView"

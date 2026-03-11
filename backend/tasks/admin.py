@@ -1,7 +1,6 @@
+from core.admin import BaseAdmin
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-
-from core.admin import BaseAdmin
 from tasks import models
 
 # Register your models here.
@@ -12,7 +11,7 @@ class TaskListAdmin(BaseAdmin):
     search_fields = ['name' , 'description']
     list_filter = ['created_at']
     search_help_text = _("Pesquisar pelo nome ou descrição")
-    
+
 @admin.register(models.TaskItem)
 class TaskItemAdmin(BaseAdmin):
     list_display = ['title' , 'task_list']

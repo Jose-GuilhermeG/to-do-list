@@ -1,9 +1,16 @@
-import type { TaskItemProtocol } from "@/types/TaskTypes";
 import { Separator } from "@/components/ui/separator"; 
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
-export default function TaskDetailCard({task} : {task : TaskItemProtocol}){
+interface TaskDetailCard{
+    task : {
+        title : string ,
+        description? : string,
+        content? : string
+    }
+}
+
+export default function TaskDetailCard({task} : TaskDetailCard){
     return (
         <div className="w-full h-full">
             <h1 className="text-2xl text-center my-5 h-[10%]">

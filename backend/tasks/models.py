@@ -1,9 +1,8 @@
+from core.constants import LONG_TEXT_LENGTH, MEDIUM_TEXT_LENGTH
+from core.models import BaseModel
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
-
-from core.models import BaseModel
-from core.constants import MEDIUM_TEXT_LENGTH , LONG_TEXT_LENGTH
 from tasks.enums import TaskStatus
 
 USER = get_user_model()
@@ -12,7 +11,7 @@ USER = get_user_model()
 class TaskList(
     BaseModel
 ):
-    
+
     name = models.CharField(
         verbose_name=_("Nome da lista de tarefas"),
         max_length=MEDIUM_TEXT_LENGTH,
@@ -22,7 +21,7 @@ class TaskList(
         db_index=True,
         help_text=_(f"Task list name , can't be empty and have {MEDIUM_TEXT_LENGTH} length size ")
     )
-    
+
     description = models.CharField(
         verbose_name=_("Descrição da lista de terefas"),
         max_length=LONG_TEXT_LENGTH,
@@ -30,29 +29,29 @@ class TaskList(
         blank=True,
         help_text=_(f"Task list description , can be empty and have {LONG_TEXT_LENGTH} length size")
     )
-    
+
     user = models.ForeignKey(
         verbose_name=_("Dono da lista de tarefas"),
         to=USER,
         related_name="tasklists",
         on_delete=models.CASCADE,
         null=False,
-        help_text=_(f"user onwer of taks list")
+        help_text=_("user onwer of taks list")
     )
-    
+
     def __str__(self):
         return f"{self.user.username} - {self.name}"
-    
+
     class Meta:
         verbose_name = _("Lista de tarefas")
         verbose_name_plural = _("Listas de tarefas")
         db_table = "task_list"
         ordering = ['-created_at']
-        
+
 class TaskItem(
     BaseModel
 ):
-    
+
     title = models.CharField(
         verbose_name=_("Titulo da tarefa"),
         max_length=MEDIUM_TEXT_LENGTH,
@@ -62,7 +61,7 @@ class TaskItem(
         db_index=True,
         help_text=_(f"Task title , can't be empty and have {MEDIUM_TEXT_LENGTH} length size ")
     )
-    
+
     description = models.CharField(
         verbose_name=_("Descrição da terefas"),
         max_length=LONG_TEXT_LENGTH,
@@ -70,7 +69,7 @@ class TaskItem(
         blank=True,
         help_text=_(f"Task description , can be empty and have {LONG_TEXT_LENGTH} length size")
     )
-    
+
     status = models.CharField(
         verbose_name=_("Status da tarefa"),
         max_length=20,
@@ -78,14 +77,14 @@ class TaskItem(
         default=TaskStatus.PENDING,
         help_text=_(f"Task status , can be {', '.join(TaskStatus.values)}")
     )
-    
+
     content = models.TextField(
         verbose_name=_("Conteúdo da tarefa"),
         null=True,
         blank=True,
         help_text=_("Task content , can be empty")
     )
-    
+
     task_list = models.ForeignKey(
         verbose_name=_("Lista de tarefas a qual a tarefa pertence"),
         to=TaskList,
@@ -93,10 +92,10 @@ class TaskItem(
         on_delete=models.CASCADE,
         help_text=_("task list which item belong to")
     )
-    
+
     def __str__(self):
         return self.title
-    
+
     class Meta:
         verbose_name = _("Tarefa")
         verbose_name_plural = _("Tarefas")

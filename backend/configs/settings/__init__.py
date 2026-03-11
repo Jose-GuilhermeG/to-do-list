@@ -1,2 +1,2 @@
-from configs.settings.basictSettings import *
-from configs.settings.apiSettings import *
+from configs.settings.apiSettings import *  # # noqa
+from configs.settings.basictSettings import *  # noqa
