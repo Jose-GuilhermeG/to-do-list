@@ -9,20 +9,21 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
 import Loading from "@/components/ui/loading";
 import useGetTaskItemDetail from "@/hooks/useGetTaskItemDetail";
+import TaskItemview from "@/features/Tasks/TaskItemView";
 
 interface TaskViewProtocol{
     selectTaskList : TaskListProtocol;
-    //setSelectTaskContent(value : string) : void ; 
 }
 
 export default function TaskView({ selectTaskList } : TaskViewProtocol) {
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
     const {taskItems , errors ,isLoading } = useGetTaskItems(accessToken , selectTaskList.id)
     const [selectTaskInfo , setSelectTaskItemInfo] = useState<TaskItemProtocol>()
+    const [isEditing , setIsEditingTask] = useState<boolean>(false)
+    const [isCreating , setisCreating] = useState<boolean>(false)
 
     const clearSelectTaskItem = ()=>{
         setSelectTaskItemInfo(undefined)
-        setSelectTaskDetail(undefined)
     }
 
 
@@ -46,17 +47,27 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
             <ul className="h-[90%] overflow-y-scroll scroll p-2">
                 {taskItems.map(element=><TaskItemCard task={element} onClickEvent={setSelectTaskItemInfo} />)}
             </ul>
-            <Button className="rounded-[5px] my-5 bottom-0 h-[10%] w-full cursor-pointer">
+            <Button className="rounded-[5px] my-5 bottom-0 h-[10%] w-full cursor-pointer" onClick={()=>setisCreating(true)} >
                 Adicionar tarefa
             </Button>
         </div>
-        <div className="row-end-3 row-start-2 col-start-2 col-end-3 w-full h-full p-5" data-color-mode="light">
+        <div className="row-end-3 row-start-2 col-start-2 col-end-3 w-full h-full p-2 grid grid-rows-[90%_10%] gap-2">
             {
             selectTaskInfo ?
             <TaskDetail selectTaskItemId={selectTaskInfo.id} selectTaskListId={selectTaskList.id}/> :
             <TaskNotSelect/>
             }
-        </div>
+            {selectTaskInfo &&  
+                <Button className="rounded-[5px] my-5 bottom-0 h-full w-full cursor-pointer" variant="outline" onClick={()=>setIsEditingTask(true)}>
+                    Editar tarefa
+                </Button>
+            }
+        </div>  
+
+        {isEditing && <TaskItemview setOpen={setIsEditingTask} task={selectTaskInfo } />}
+        {isCreating && <TaskItemview setOpen={setisCreating} />}
+
+        
     </div>
     );
 }
