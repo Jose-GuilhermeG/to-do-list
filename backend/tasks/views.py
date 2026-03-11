@@ -34,7 +34,8 @@ class TaskItemViewSet(
     serializers_class_per_action = {
         "create" : TaskItemSerializerCreate,
         "retrieve" : TaskItemSerializerDetail,
-        "update" : TaskItemSerializerDetail
+        "update" : TaskItemSerializerDetail,
+        "partial_update" : TaskItemSerializerDetail
     }
     
     def get_task_list_pk(self):

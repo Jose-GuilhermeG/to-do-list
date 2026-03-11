@@ -12,7 +12,7 @@ router.register(
 )
 
 taskItemList = TaskItemViewSet.as_view({"get" : "list" , "post" : "create"})
-taskItemDetail = TaskItemViewSet.as_view({"get" : "retrieve" , "put" : "update"})
+taskItemDetail = TaskItemViewSet.as_view({"get" : "retrieve" , "put" : "update" , "patch" : "partial_update"})
 
 urlpatterns = [
     path(

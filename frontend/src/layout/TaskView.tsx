@@ -45,7 +45,7 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
             onDoubleClick={()=>clearSelectTaskItem()}
             >
             <ul className="h-[90%] overflow-y-scroll scroll p-2">
-                {taskItems.map(element=><TaskItemCard task={element} onClickEvent={setSelectTaskItemInfo} />)}
+                {taskItems.map(element=><TaskItemCard taskListId={selectTaskList.id} task={element} onClickEvent={setSelectTaskItemInfo} />)}
             </ul>
             <Button className="rounded-[5px] my-5 bottom-0 h-[10%] w-full cursor-pointer" onClick={()=>setisCreating(true)} >
                 Adicionar tarefa

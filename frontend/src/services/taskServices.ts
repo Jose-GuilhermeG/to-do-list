@@ -41,3 +41,12 @@ export const createTasklistService = async (accessToken : string , name : string
         {headers : createServiceHerder("Bearer" , accessToken)}
     )
 }
+
+export const setTaskItemStatusService = async (taskItemId : number , taskListId : number , status : TaskItemProtocol["status"] , accessToken : string) : Promise<AxiosPromise<TaskItemProtocol>> =>{
+    const url = `${taskListId}/tasks/${taskItemId}/`
+    return requests.patch(
+        url,
+        {status : status},
+        {headers : createServiceHerder("Bearer" , accessToken)}
+    )
+}
