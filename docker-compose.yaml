@@ -1,0 +1,61 @@
+networks:
+  to-do-net:
+
+volumes:
+  database-vol:
+  api-data-vol:
+
+services:
+
+  db:
+    image: postgres:16-alpine3.23
+    container_name: to-do-db
+    restart: always
+    env_file:
+      - ./.env.production
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME}
+    networks:
+      - to-do-net
+    volumes:
+      - database-vol:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"] 
+      interval: 5s 
+      timeout: 5s 
+      retries: 5
+    
+  api:
+    container_name: to-do-api
+    build: 
+      dockerfile: ./compose/api/dockerfile
+      context: .
+    networks:
+      - to-do-net
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env.production
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - api-data-vol:/usr/app/static/
+
+  web:
+    build: 
+      dockerfile: ./compose/web/dockerfile
+      context: .
+    container_name: to-do-web
+    env_file:
+      - ./.env.production
+    networks:
+      - to-do-net
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    volumes:
+      - api-data-vol:/backend/static/

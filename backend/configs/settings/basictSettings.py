@@ -4,9 +4,11 @@ from pathlib import Path
 from environ import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-Env.read_env(
-    join(BASE_DIR , '.env')
-)
+
+if(Env().bool("DJANGO_READ_DOT_ENV_FILE" , default=False)):
+    Env.read_env(
+        join(BASE_DIR , '.env')
+    )
 
 env = Env()
 
@@ -18,12 +20,12 @@ DEBUG = env.bool(
     default=False
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS" , default=["*"])
 
 PROJECT_APPS = [
     'core',
     'tasks',
-    'account'
+    'account',
 ]
 
 TRHIRD_PARTY_APPS = [
@@ -131,6 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = join(BASE_DIR , "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -1,8 +1,10 @@
 from datetime import timedelta
 
-from configs.settings.basictSettings import env
+from configs.settings.basictSettings import env , DEBUG
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+
+CORS_ALLOWED_ORIGINS = env.list("CORS_ORIGINS" , default=[])
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=25),
