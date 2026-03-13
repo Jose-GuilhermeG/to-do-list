@@ -16,8 +16,8 @@ class TaskItemSerializerCreate(serializers.ModelSerializer):
 class TaskItemSerializerDetail(serializers.ModelSerializer):
     class Meta:
         model = TaskItem
-        fields = ["title" , "description" , "content" , "status" , "created_at"]
-        read_only_fields = ['created_at']
+        fields = ["id", "title" , "description" , "content" , "status" , "created_at"]
+        read_only_fields = ['created_at' , "id"]
 
 class taskListSerializer(
     serializers.ModelSerializer

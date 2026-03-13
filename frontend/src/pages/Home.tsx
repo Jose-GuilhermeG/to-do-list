@@ -1,5 +1,6 @@
 import Loading from "@/components/ui/loading";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
+import { TaskProvider } from "@/contexts/taskContext";
 import CreateTaskList from "@/features/TaskLists/CreateTaskList";
 import TaskListNotSelect from "@/features/TaskLists/TaskListNotSelect";
 import useGetTaskList from "@/hooks/useGetTaskLists";
@@ -22,12 +23,14 @@ export function Home() {
 
   return (
     <main className="h-screen w-screen bg-neutral-100 relative grid grid-cols-[15%_80%] gap-10">
-      <CreateTaskList open={haveCreateTaskList} setOpen={setHaveCreateTaskList} setTaskLists={addTaskList}/>
-      <SideBar taskListselected={selectTaskList} taskLists={taskLists} selectTaskList={setSelectTask} createTaskList={()=>setHaveCreateTaskList(true)}/>
-      {selectTaskList ? 
-        <TaskView selectTaskList={selectTaskList}/> :
-        <TaskListNotSelect/>
-      }
+      <TaskProvider>
+        <CreateTaskList open={haveCreateTaskList} setOpen={setHaveCreateTaskList} setTaskLists={addTaskList}/>
+        <SideBar taskListselected={selectTaskList} taskLists={taskLists} selectTaskList={setSelectTask} createTaskList={()=>setHaveCreateTaskList(true)}/>
+        {selectTaskList ? 
+          <TaskView selectTaskList={selectTaskList}/>:
+          <TaskListNotSelect/>
+        }
+      </TaskProvider>
     </main>
   )
 }

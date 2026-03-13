@@ -3,9 +3,8 @@ import { Button } from "@/components/ui/button";
 import {FolderXIcon} from "lucide-react"
 import { useState } from "react";
 import CreateTask from "../TaskItems/CreateTask";
-import type { TaskItemProtocol } from "@/types/TaskTypes";
 
-export default function EmptyTaskList({taskListId , setTasks} : {taskListId : number , setTasks : (value : TaskItemProtocol)=>void}){
+export default function EmptyTaskList(){
     const [isCreating , setIsCreating] = useState<boolean>(false)
 
     return (
@@ -28,7 +27,7 @@ export default function EmptyTaskList({taskListId , setTasks} : {taskListId : nu
                     </EmptyContent>
                 </EmptyHeader>
             </Empty>
-            {isCreating && <CreateTask setOpen={setIsCreating} taskListId={taskListId} setTaskItems={setTasks} />}
+            {isCreating && <CreateTask setOpen={setIsCreating}/>}
         </div>
     )
 }

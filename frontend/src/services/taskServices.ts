@@ -6,9 +6,12 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 const BASEURLPATH = "lists"
 const BASEURL = API_BASE_URL + BASEURLPATH
 
+const accessToken = localStorage.getItem("access") as string
+
 const requests = axios.create({
     baseURL : BASEURL,
-    timeout : 5000
+    timeout : 5000,
+    headers : createServiceHerder("Bearer",accessToken)
 })
 
 export const getTaskListsServices = (accessToken : string) : Promise<AxiosPromise<TaskListProtocol[]>> =>{
@@ -54,6 +57,23 @@ export const setTaskItemStatusService = async (taskItemId : number , taskListId 
 export const createTaskItemService = async (data : CreateTaskItemProtocol , accessToken : string , taskListId : number ) : Promise<AxiosPromise<TaskItemProtocol>> =>{
     const url = `${taskListId}/tasks/`
     return requests.post(
+        url,
+        data,
+        {headers : createServiceHerder("Bearer" , accessToken)}
+    )
+}
+
+export const deleteTaskItemService = async (taskItemId : number , taskListId : number ) : Promise<AxiosPromise> =>{
+    const url = `${taskListId}/tasks/${taskItemId}/`
+    return requests.delete(
+        url,
+    )
+}
+
+
+export const updateTaskItemService = async (data : CreateTaskItemProtocol , accessToken : string , taskListId : number , taskItemId : number ) : Promise<AxiosPromise<TaskItemProtocol>> =>{
+    const url = `${taskListId}/tasks/${taskItemId}/`
+    return requests.put(
         url,
         data,
         {headers : createServiceHerder("Bearer" , accessToken)}
