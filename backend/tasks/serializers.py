@@ -10,7 +10,8 @@ class TaskItemSerializer(serializers.ModelSerializer):
 class TaskItemSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = TaskItem
-        fields = ["title" , "content" , "description"]
+        fields = ["id","title" ,"status", "content" , "description"]
+        read_only_fields = ["id" ,"status"]
 
 class TaskItemSerializerDetail(serializers.ModelSerializer):
     class Meta:

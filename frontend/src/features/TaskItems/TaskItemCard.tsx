@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext"
 import useSetStatus from "@/hooks/useSetStatus"
 import Loading from "@/components/ui/loading"
+import {Trash2} from "lucide-react"
 
 
 export default function TaskItemCard({task , taskListId , onClickEvent} : {task : TaskItemProtocol , taskListId : number , onClickEvent : (task : TaskItemProtocol) =>void }){
@@ -33,8 +34,11 @@ export default function TaskItemCard({task , taskListId , onClickEvent} : {task 
             }}
             onClick={()=>onClickEvent(task)}
             >
-            <h1 className="flex px-2 py-3 cursor-pointer text-2xl items-center">
+            <h1 className="flex px-2 py-3 cursor-pointer text-2xl items-center relative">
                 <Checkbox className="mx-2 group-hover:border-black" checked={checked} onClick={(e)=>e.stopPropagation()} onCheckedChange={MarkTask} />  {task.title}
+                <div className="h-1/2 aspect-square px-1 py-4 rounded-[5px] absolute right-5 bottom-[15%] flex justify-center items-center bg-red-600 group-hover:bg-red-700 hover:bg-red-500" onDoubleClick={(e)=>e.stopPropagation()}>
+                    <Trash2 className="text-white"/>
+                </div>
             </h1>
             <FieldDescription className="px-5 font-light">
                 {task.description}

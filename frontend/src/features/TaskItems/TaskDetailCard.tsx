@@ -14,10 +14,10 @@ export default function TaskDetailCard({task} : TaskDetailCard){
     return (
         <div className="w-full h-full">
             <h1 className="text-2xl text-center my-5 h-[10%]">
-                {task?.title}
+                {task?.title || "Escreva o titulo da tarefa"}
             </h1>
             <p>
-                {task?.description}
+                {task?.description || "Tarefa sem descrição"}
             </p>
             <Separator/>
             <div className="h-[75%] my-2">

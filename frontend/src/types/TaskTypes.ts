@@ -13,3 +13,9 @@ export interface TaskListProtocol{
     name : string,
     description? : string,
 }
+
+export interface CreateTaskItemProtocol{
+    title : string ;
+    description ? : string ;
+    content ? : string;
+}

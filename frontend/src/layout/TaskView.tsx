@@ -5,10 +5,11 @@ import TaskItemCard from "@/features/TaskItems/TaskItemCard";
 import TaskNotSelect from "@/features/TaskItems/TaskNotSelect";
 import EmptyTaskList from "@/features/TaskLists/EmptyTaskList";
 import useGetTaskItems from "@/hooks/useGetTaskItems";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
 import Loading from "@/components/ui/loading";
 import TaskItemview from "@/features/TaskItems/TaskItemView";
+import CreateTask from "@/features/TaskItems/CreateTask";
 
 interface TaskViewProtocol{
     selectTaskList : TaskListProtocol;
@@ -16,7 +17,7 @@ interface TaskViewProtocol{
 
 export default function TaskView({ selectTaskList } : TaskViewProtocol) {
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
-    const {taskItems ,isLoading } = useGetTaskItems(accessToken , selectTaskList.id)
+    const {taskItems ,isLoading , setTaskItems } = useGetTaskItems(accessToken , selectTaskList.id)
     const [selectTaskInfo , setSelectTaskItemInfo] = useState<TaskItemProtocol>()
     const [isEditing , setIsEditingTask] = useState<boolean>(false)
     const [isCreating , setisCreating] = useState<boolean>(false)
@@ -25,12 +26,13 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
         setSelectTaskItemInfo(undefined)
     }
 
+    const addTaskItem = (taskItem : TaskItemProtocol) => setTaskItems(prev=>[taskItem,...prev])
 
     if(isLoading) return (    
         <Loading/>
     )
 
-    if(!taskItems.length) return <EmptyTaskList taskListId={selectTaskList.id}/>
+    if(!taskItems.length) return <EmptyTaskList taskListId={selectTaskList.id} setTasks={addTaskItem}/>
 
     return (
     <div className="w-full h-[95%] rounded-2xl bg-white m-auto shadow-2xl shadow-neutral-400 grid grid-cols-2 grid-rows-[10%_85%] overflow-hidden gap-2 relative">
@@ -64,7 +66,7 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
         </div>  
 
         {isEditing && <TaskItemview setOpen={setIsEditingTask} task={selectTaskInfo } taskListId={selectTaskList.id} />}
-        {isCreating && <TaskItemview setOpen={setisCreating} taskListId={selectTaskList.id} />}
+        {isCreating && <CreateTask setOpen={setisCreating} taskListId={selectTaskList.id} setTaskItems={addTaskItem}/>}
 
         
     </div>

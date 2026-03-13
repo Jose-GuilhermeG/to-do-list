@@ -1,5 +1,3 @@
-
-
 import Loading from "@/components/ui/loading";
 import { useContext } from "react";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
@@ -15,7 +13,7 @@ interface TaskDetailProtocol{
 export default function TaskDetail({selectTaskItemId , selectTaskListId} : TaskDetailProtocol){
 
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
-    const {taskItem , isLoading} = useGetTaskItemDetail(accessToken , selectTaskItemId , selectTaskListId)
+    const {taskItem , isLoading} = useGetTaskItemDetail(accessToken , selectTaskListId , selectTaskItemId)
 
     if(isLoading) return (
         <div className="w-full h-full flex items-center">

@@ -1,63 +1,49 @@
 import { BaseModal } from "@/components/ui/modal";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import MdEditor from "@uiw/react-md-editor";
 import "react-markdown-editor-lite/lib/index.css";
 import TaskDetailCard from "./TaskDetailCard";
 import { Separator } from "@/components/ui/separator";
-import type { TaskItemProtocol } from "@/types/TaskTypes";
+import type { CreateTaskItemProtocol, TaskItemProtocol } from "@/types/TaskTypes";
 import { Button } from "@/components/ui/button";
 
 interface TaskItemViewProtocol{
     setOpen : (value : boolean) => void;
     task? : TaskItemProtocol;
-    taskListId : number;    
+    onSubmitEvent : (e : React.SubmitEvent , data : CreateTaskItemProtocol) => Promise<void>
 }
 
-export default function TaskItemview({setOpen , task} : TaskItemViewProtocol ){
-    const [title, setTitle] = useState<string>(task?.title || "Escreva o titulo da tarefa");
-    const [description, setDescription] = useState<string>((task?.description || "Escreva a descrição da tarefa"));
+export default function TaskItemview({setOpen , task , onSubmitEvent} : TaskItemViewProtocol ){
+    const [title, setTitle] = useState<string>(task?.title || "");
+    const [description, setDescription] = useState<string>((task?.description || ""));
     const [content, setContent] = useState<string>(task?.content || "");
-    const refs = useRef<Record<string, HTMLTextAreaElement | null>>({});
 
-    useEffect(()=>{
-    },[task])
-
-    const handleBlur = (id: string, setValue: (v: string) => void) => {
-    const el = refs.current[id];
-    if (el && !el.value.trim()) {
-      setValue("Digite algo");
-    }
-  };
 
     const setValue = (e : React.InputEvent , funcSet : (value : string) => void) : void =>{
         const element = e.target as HTMLInputElement;
         funcSet(element.value)
     }
 
-    const setRef = (id: string) => (el: HTMLTextAreaElement | null) => {
-        refs.current[id] = el;
-    };
 
     return (
         <BaseModal onClick={()=>setOpen(false)}>
-            <div className="bg-white p-5 w-4/5 h-4/5 m-auto rounded-2xl relative grid grid-rows-[25%_75%] grid-cols-2 " data-color-mode="light" onClick={(e)=>e.stopPropagation()}>
+            <form method="post" className="bg-white p-5 w-4/5 h-4/5 m-auto rounded-2xl relative grid grid-rows-[25%_75%] grid-cols-2 " data-color-mode="light" onClick={(e)=>e.stopPropagation()} onSubmit={(e)=>onSubmitEvent(e,{title , description , content})}>
                 <div className="w-full h-full row-start-1 row-end-2 col-start-1 col-end-2">
                         <textarea 
                             className="w-full outline-none text-2xl text-center py-5 h-[50%]" 
                             onInput={e=>setValue(e , setTitle)} 
-                            ref={setRef("titleDisplay")}
                             value={title} 
                             id="titleDisplay"
-                            onBlur={() => handleBlur("titleDisplay", setTitle)}
+                            placeholder="Escreva o titulo da tarefa"
+                            required
                             />
                         <p>
                             <textarea 
                                 value={description} 
                                 className="w-full outline-none" 
-                                ref={setRef("descriptionDisplay")}
                                 onInput={e=>setValue(e , setDescription)}
-                                onBlur={() => handleBlur("descriptionDisplay", setDescription)}
                                 id="descriptionDisplay"
+                                placeholder="Escreva a descrição da tarefa"
                                 />
                         </p>
                         <Separator/>
@@ -77,7 +63,7 @@ export default function TaskItemview({setOpen , task} : TaskItemViewProtocol ){
                         { task ? "Salvar" : "Criar"}
                     </Button>
                 </div>
-            </div>
+            </form>
         </BaseModal>
     )
 }

@@ -1,4 +1,4 @@
-import type { TaskItemListProtocol, TaskItemProtocol, TaskListProtocol } from "@/types/TaskTypes"
+import type { CreateTaskItemProtocol, TaskItemListProtocol, TaskItemProtocol, TaskListProtocol } from "@/types/TaskTypes"
 import { createServiceHerder } from "@/utils/servicesUtils"
 import axios, { type AxiosPromise } from "axios"
 
@@ -47,6 +47,15 @@ export const setTaskItemStatusService = async (taskItemId : number , taskListId 
     return requests.patch(
         url,
         {status : status},
+        {headers : createServiceHerder("Bearer" , accessToken)}
+    )
+}
+
+export const createTaskItemService = async (data : CreateTaskItemProtocol , accessToken : string , taskListId : number ) : Promise<AxiosPromise<TaskItemProtocol>> =>{
+    const url = `${taskListId}/tasks/`
+    return requests.post(
+        url,
+        data,
         {headers : createServiceHerder("Bearer" , accessToken)}
     )
 }

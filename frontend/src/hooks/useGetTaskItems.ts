@@ -23,6 +23,6 @@ export default function useGetTaskItems(accessToken : string , taskLisId : numbe
         getTaskItems(accessToken)
     },[accessToken , taskLisId])
 
-    return {isLoading , errors , setErrors , taskItems }
+    return {isLoading , errors , setTaskItems , setErrors , taskItems }
 
 }
