@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from configs.settings.basictSettings import env , DEBUG
+from configs.settings.basictSettings import DEBUG, env
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 

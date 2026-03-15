@@ -1,17 +1,17 @@
+import { TaskContext, type TaskContextProtocol } from "@/contexts/taskContext";
 import TaskListCard from "@/features/TaskLists/TaskListCard";
-import type { TaskListProtocol } from "@/types/TaskTypes";
 import { ListChecks , Plus, Settings, CircleQuestionMark, LogOut } from "lucide-react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 
 interface sideBarProtocol{
-    taskLists : TaskListProtocol[] ; 
-    taskListselected? : TaskListProtocol ; 
-    selectTaskList : (task : TaskListProtocol)=>void;
     createTaskList : ()=>void
 }
 
-export default function SideBar({taskLists , createTaskList , taskListselected , selectTaskList} : sideBarProtocol){
+export default function SideBar({ createTaskList } : sideBarProtocol){
+    const {taskLists , selectTaskList : taskListselected , setSelectTaskList : selectTaskList } = useContext(TaskContext) as TaskContextProtocol
+
     return (
         <aside className="h-screen w-full bg-white top-0 left-0 shadow shadow-neutral-200 grid grid-rows-3">
             <div className="w-full h-full flex flex-col items-center row-start-1 row-end-3">

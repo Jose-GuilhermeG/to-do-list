@@ -19,12 +19,12 @@ export default function TaskListCard({taskList , isSelect = false , onClickEvent
         e.preventDefault()
         setY(e.clientY - 100)
         setX(e.clientX - 150)
-        setShowMenu(true)
+        setShowMenu((prev)=>!prev)
     }
 
     return (
-        <li key={taskList.id} className="w-full hover:bg-neutral-200" onClick={()=>onClickEvent(taskList)}  onContextMenu={handlerRightClick}>
-            {showMenu && <TaskListOptionsMenu y={y} x={x}/>}
+        <li key={taskList.id} className="w-full hover:bg-neutral-200" onClick={()=>onClickEvent(taskList)} onContextMenu={handlerRightClick}>
+            {showMenu && <TaskListOptionsMenu y={y} x={x} taskList={taskList} setOpen={setShowMenu}/>}
             <button className="w-4/5 m-auto flex px-2 py-4 cursor-pointer relative">
                 <Folder className="mr-10"/> {taskList.name}
                 {isSelect && 

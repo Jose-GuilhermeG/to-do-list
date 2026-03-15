@@ -1,5 +1,5 @@
 import type { CreateTaskItemProtocol, TaskItemListProtocol, TaskItemProtocol, TaskListProtocol } from "@/types/TaskTypes"
-import { createServiceHerder } from "@/utils/servicesUtils"
+import { createServiceHerder , setRequestAuthHandler } from "@/utils/servicesUtils"
 import axios, { type AxiosPromise } from "axios"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -13,6 +13,8 @@ const requests = axios.create({
     timeout : 5000,
     headers : createServiceHerder("Bearer",accessToken)
 })
+
+setRequestAuthHandler(requests)
 
 export const getTaskListsServices = (accessToken : string) : Promise<AxiosPromise<TaskListProtocol[]>> =>{
     return requests.get(
@@ -77,5 +79,21 @@ export const updateTaskItemService = async (data : CreateTaskItemProtocol , acce
         url,
         data,
         {headers : createServiceHerder("Bearer" , accessToken)}
+    )
+}
+
+export const updateTaskListService = async ( name : string , taskListId : number) : Promise<AxiosPromise<TaskListProtocol>> => {
+    const url = `${taskListId}/`
+    const data = {name}
+    return requests.put(
+        url,
+        data,
+    )
+} 
+
+export const deleteTaskListService = async (taskListId : number ) : Promise<AxiosPromise> =>{
+    const url = `${taskListId}/`
+    return requests.delete(
+        url,
     )
 }

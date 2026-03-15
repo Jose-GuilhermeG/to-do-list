@@ -38,5 +38,5 @@ class TaskListDetailSerializer(
 
     class Meta:
         model = TaskList
-        fields = ['name' , 'description' , 'created_at' , 'items']
+        fields = ["id" ,'name' , 'description' , 'created_at' , 'items']
         read_only_fields = ['created_at']
