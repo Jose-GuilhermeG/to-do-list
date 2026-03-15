@@ -1,4 +1,4 @@
-import axios ,{ type Axios } from "axios";
+import axios ,{ type AxiosInstance } from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const createServiceHerder = (authorizationType? : "Bearer" , authorizationToken? : string )=>{
@@ -19,7 +19,7 @@ async function refreshToken() {
     return newAccessToken;
 }
 
-export const setRequestAuthHandler = (api : Axios) => {
+export const setRequestAuthHandler = (api : AxiosInstance) => {
     api.interceptors.response.use(
       (response) => response,
       async (error) => {

@@ -19,7 +19,7 @@ interface TaskViewProtocol{
 export default function TaskView({ selectTaskList } : TaskViewProtocol) {
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
     const {taskItems ,isLoading } = useGetTaskItems(accessToken , selectTaskList.id)
-    const {tasks , setTasks , setSelectTaskList , setSelectTaskItemInfo , selectTaskItemInfo , addTask} = useContext(TaskContext) as TaskContextProtocol
+    const {tasks , setTasks , setSelectTaskList , setSelectTaskItemInfo , selectTaskItemInfo} = useContext(TaskContext) as TaskContextProtocol
     const [isEditing , setIsEditingTask] = useState<boolean>(false)
     const [isCreating , setisCreating] = useState<boolean>(false)
 
@@ -44,7 +44,7 @@ export default function TaskView({ selectTaskList } : TaskViewProtocol) {
         <Loading/>
     )
 
-    if(!tasks.length) return <EmptyTaskList taskListId={selectTaskList.id}/>
+    if(!tasks.length) return <EmptyTaskList/>
 
     return (
     <div className="w-full h-[95%] rounded-2xl bg-white m-auto shadow-2xl shadow-neutral-400 grid grid-cols-2 grid-rows-[10%_85%] overflow-hidden gap-2 relative">

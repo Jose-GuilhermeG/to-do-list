@@ -18,7 +18,7 @@ export interface TaskContextProtocol{
 
 export const TaskContext = createContext<TaskContextProtocol | null>(null)
 
-export function TaskProvider({children} : {children : React.ReactElement[]}){
+export function TaskProvider({children} : {children : React.ReactElement}){
     const [selectTaskList , setSelectTaskList] = useState<TaskListProtocol>()
     const [selectTask , setSelectTask] = useState<TaskItemProtocol>()
     const [selectTaskItemInfo , setSelectTaskItemInfo] = useState<TaskItemListProtocol>()

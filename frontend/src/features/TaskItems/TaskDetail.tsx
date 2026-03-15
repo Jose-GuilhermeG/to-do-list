@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext, type AuthContextProtocol } from "@/contexts/authContext";
 import useGetTaskItemDetail from "@/hooks/useGetTaskItemDetail";
 import TaskDetailCard from "./TaskDetailCard";
-import type { TaskItemProtocol } from "@/types/TaskTypes";
+import type { TaskItemListProtocol, TaskItemProtocol, TaskListProtocol } from "@/types/TaskTypes";
 import { TaskContext, type TaskContextProtocol } from "@/contexts/taskContext";
 
 
@@ -11,7 +11,7 @@ export default function TaskDetail(){
 
     const {accessToken} = useContext(AuthContext) as AuthContextProtocol
     const {selectTaskItemInfo , selectTaskList , setSelectTask , selectTask } = useContext(TaskContext) as TaskContextProtocol
-    const {taskItem , isLoading} = useGetTaskItemDetail(accessToken , selectTaskList?.id , selectTaskItemInfo?.id)
+    const {taskItem , isLoading} = useGetTaskItemDetail(accessToken , (selectTaskList as TaskListProtocol).id , (selectTaskItemInfo as TaskItemListProtocol).id)
 
     useEffect(()=>{
         if(taskItem) setSelectTask(taskItem)
